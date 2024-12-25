@@ -1,0 +1,14 @@
+---------Matplotlib
+
+————matplotlib.pyplot.scatter(x,y,s=20,c='b',marker='o',cmap=None,norm=None,vmin=None,vmax=None,alpha=None,linewidths=None,vert=N)
+绘制散点图,X,Y是相同长度的数组序列
+x,y -> 形如shape(n,)数组
+s -> 标量或形如shape(n,)数组,可选,默认:20
+c -> 色彩或颜色序列,可选,默认（C不应是一个单一的RGB数字或RGBA序列,因为不便区分,C可以是一个RGB或RGBA二维行数组）
+
+————matplotlib.pyplot.plot(x,y,fmt,**kwargs)
+绘制折线图（将一组数据点连接起来）
+x -> 表示x轴上的数据点,通常是一个列表、数组或一维序列,用于指定数据点的水平位置
+y -> 表示y轴上的数据点,通常也是一个列表、数组或一维序列,用于指定数据点的垂直位置
+fmt -> 是一个可选的格式字符串,用于指定线条的样式、标记和颜色。例如:‘ro-’表示红色圆点线条
+**kwargs -> 是一系列可选参数,用于进一步自定义线条的属性,如线宽、标记大小、标签等
