@@ -1,10 +1,15 @@
+import os
+
 import numpy as np
+import pandas as pd
+import pymssql
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn import linear_model, datasets
 from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score, roc_curve, roc_auc_score
 from sklearn.datasets import make_classification
+from sqlalchemy import create_engine
 
 
 #线性回归
@@ -147,7 +152,40 @@ def AUC_Learning():
     print(f"AUC: {auc:.2f}")
 
 
+def SQL_FILE():
+    #sql文件夹路径
+    sql_path = './SQL'+'\\'
+    #sql文件名
+    sql_file = 'sql1.sql'
+
+    #读取sql内容
+    sql = open(sql_path + sql_file, 'r',encoding='utf-8')
+    sqltxt = sql.read()#sqltxt为list类型
+
+    #关闭文件
+    sql.close()
+    # list 转 str
+    sql = "".join(sqltxt)
+    print(sql)
+
+    con = pymssql.connect(host="10.100.1.40",
+    user="sa",
+    password="D@dbserver1%ngtb",
+    database="MesDB",
+    tds_version="7.0")
+    #engine = create_engine('mssql+pymssql://sa:D@dbserver1%ngtb@10.100.1.40/MesDB?charset=utf8?tds_version="7.0"')
+
+    cursor = con.cursor()
+    cursor.execute(sql)
+    df = cursor.fetchall()
+    df = pd.DataFrame(list(df))
+    #df = pd.read_sql_query(sql, engine)
+    con.close()
+    print(df)
+
+
 if __name__ == '__main__':
     #Linear_Regression_training()
-    AUC_Learning()
+    #AUC_Learning()
+    SQL_FILE()
 
