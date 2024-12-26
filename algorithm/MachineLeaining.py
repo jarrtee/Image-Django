@@ -154,13 +154,13 @@ def AUC_Learning():
 
 def SQL_FILE():
     #sql文件夹路径
-    sql_path = './SQL'+'\\'
+    sql_path = './SQL' + '\\'
     #sql文件名
     sql_file = 'sql1.sql'
 
     #读取sql内容
-    sql = open(sql_path + sql_file, 'r',encoding='utf-8')
-    sqltxt = sql.read()#sqltxt为list类型
+    sql = open(sql_path + sql_file, 'r', encoding='utf-8')
+    sqltxt = sql.read()  #sqltxt为list类型
 
     #关闭文件
     sql.close()
@@ -169,10 +169,10 @@ def SQL_FILE():
     print(sql)
 
     con = pymssql.connect(host="10.100.1.40",
-    user="sa",
-    password="D@dbserver1%ngtb",
-    database="MesDB",
-    tds_version="7.0")
+                          user="sa",
+                          password="D@dbserver1%ngtb",
+                          database="MesDB",
+                          tds_version="7.0")
     #engine = create_engine('mssql+pymssql://sa:D@dbserver1%ngtb@10.100.1.40/MesDB?charset=utf8?tds_version="7.0"')
 
     cursor = con.cursor()
@@ -188,4 +188,3 @@ if __name__ == '__main__':
     #Linear_Regression_training()
     #AUC_Learning()
     SQL_FILE()
-

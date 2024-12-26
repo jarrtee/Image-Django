@@ -1,0 +1,210 @@
+---------Scikit-learn
+
+———— sklearn.datasets,make_classification(n_samples=100, n_features=20, *, n_informative=2, n_redundant=2, n_repeated=0, n_classes=2, n_clusters_per_class=2,
+                                         weights=None, flip_y=0.01, class_sep=1.0, hypercube=True, shift=0.0, scale=1.0, shuffle=True, random_state=None)
+随机生成n类分类问题
+参数:
+    --n_samples <<< int,optional(default = 100) 样本数
+    --n_features <<< int,optional(default = 20) 功能总数.这些包括随机绘制的n_informative信息特征,n_redundant冗余特征,n_repeated重复特征和n_features-n_informative-n_redundant-n_repeated无用特征
+    --n_informative <<< int,optional(default = 2) 信息特征的数量.每个类都由多个高斯簇组成,每个簇围绕着超立方体的顶点位于n_informative维子空间中.对于每个聚类,独立于N（0，1）绘制信息特征,
+                                                               然后在每个聚类内随机线性组合以增加协方差.然后将簇放置在超立方体的顶点上.
+    --n_redundant <<< int,optional(default = 2) 冗余特征的数量.这些特征是作为信息特征的随机线性组合生成的
+    --n_repeated <<< int,optional(default = 0) 从信息性和冗余特征中随机抽取的重复性特征的数量
+    --n_classes <<< int,optional(default = 2) 分类问题的类(或标签)数
+    --n_clusters_per_class <<< int,optional(default = 2) 每个类的簇数
+    --weights <<< array-like of shape(n_classes,) or (n_classes - 1,),(default = None) 分配给每个类别的样本比例.若为None,则类是平衡的.若len(weights) == n_classes - 1,则自动推断最后一个类的权重.
+                                                                                       若weights之和超过1,则可能返回多于n_samples个样本
+    --flip_y <<< float,optional(default = 0.01) 类别随机分配的样本比例.较大的值会在标签中引入噪音,并使分类任务更加困难.请注意,在某些情况下,默认设置flip_y>0可能导致y中的类少于n_class
+    --class_sep <<< float,optional(default = 1.0) 超立方体大小乘以的因子.较大的值分散了群集/类,并使分类任务更加容易
+    --hypercube <<< boolean,optinal(default = True) 若为True,则将簇放置在超立方体的顶点上.若为False,则将簇放置在随机多面体的顶点上
+    --shift <<< float,array of shape [n_features] or None,optional(default = 0.0) 按指定值移动特征.若为None,则将特征移动[-class_sep, calss_sep]中绘制的随机值
+    --scale <<< float,array of shape[n_features] or None,optional(default = 1.0) 按特征乘以指定值.若为None,则将按[1,100]中绘制的随机值缩放要素.缩放发生在位移之后
+    --shuffle <<< shuboolean,optional(default = True) shuffle样本和特征
+    --random_state <<< int,RandomState instance, default = None 确定用于生成数据集的随机数生成.为多个函数调用传递可重复输出的int值
+返回值：
+      --x <<< array of shape[n_samples,n_features] 生成的样本
+      --y <<< array of shape[n_samples] 每个样本的类成员的整数标签
+
+
+
+———— sklearn.model_selection.train_test_split(* arrays，** options)
+将数组或矩阵切分为随机训练和测试子集
+参数:
+    --*arrays <<< sequence of indexables with same length/shape[0] 允许的输入是列表,numpy数组,稀疏矩阵或padas中的DataFrame
+    --test_size <<< float or int,default=None 若为float,则应在0.0到1.0之间,表示要包括在测试集切分中的数据集的比例.若为int,则表示测试集样本的绝对数量.若为None,则将值设置为训练集大小的补集.
+                                                若train_size也是None,则将其设置为0.25
+    --train_size <<< float or int,default=None 若为float,则应在0.0到1.0之间,并表示要包含在训练集切分中的数据集的比例.若为int,则表示训练集样本的绝对数量.若为None,则该值将自动设置为测试集大小的补集
+    --random_state <<< int or RandomState instance,default=None 在应用切分之前,控制应用于数据的无序处理.为多个函数调用传递可重复输出的int值
+    --shuffle <<< bool,default=True 切分前是否对数据进行打乱.若shuffle = False,则stratify必须为None
+    --stratify <<< array-like,default=None 若不为None,则以分层方式切分数据,并将其用作类标签
+返回值:
+      --splitting <<< list,length=2*len(arrays) 列表包含切分后的训练集和测试集
+
+
+
+———— sklearn.linear_model.LogisticRegression(penalty='l2', *, dual=False, tol=0.0001, C=1.0, fit_intercept=True, intercept_scaling=1, class_weight=None, random_state=None,
+                                            solver='lbfgs', max_iter=100, multi_class='auto', verbose=0, warm_start=False, n_jobs=None, l1_ratio=None)
+Logistic回归分类器(在多类情况下,若将'multi_class'选项设置为'over',则训练算法将使用'一对剩余'(OvR)方案;若将'multi_class'选项设置为'multinomial(多项式)',则使用交叉熵损失)
+参数:
+    --penalty <<< {'L1','L2','elasticnet','none'},default='L2' 用于指定处罚中使用的规范.'newton-cg','sag'和'lbfgs'求解器仅支持L2惩罚.仅'saga'求解器支持'elasticnet'.若为None,则不应用任何正则化
+    --dual <<< bool,default=False 是否对偶化.仅对liblinear求解器使用L2惩罚时进行对偶化.当n_samples>n_features时,首选dual=False
+    --tol <<< float,default=1e-4 停止的容差标准
+    --C <<< float,default=1.0 正则强度的倒数,必须为正浮点数.与支持向量机一样,较小的值指定更强的正则化
+    --fit_intercept <<< bool,default=True 是否将常量(aka偏置或截距)添加到决策函数
+    --intercept_scaling <<< float,default=1 仅在使用求解器'liblinear'并将self.fit_intercept设置为True时有用.在这种情况下,x变为[x，self.intercept_scaling],
+                                            即将常量值等于intercept_scaling的'合成'特征附加到实例矢量.截距变为intercept_scaling * synthetic_feature_weight
+    --class_weight <<< dict or 'balanced',default=None 以{class_label:weight}的形式与类别关联的权重.如果没有给出,所有类别的权重都应该是1.'balanced'模式使用y的值来自动调整为与输入数据中的类频率成反比的权重.
+                                                       如n_samples / (n_classes * np.bincount(y))
+    --random_state <<< int,RandomState instance,default=None 在solver=='sag','saga'或'liblinear'时，用于随机整理数据
+    --solver <<< {'newton-cg','lbfgs','liblinear','sag','saga'}, default=’lbfgs’  - 对于小型数据集,'liblinear'是一个不错的选择,而对于大型数据集,'sag'和'saga'更快
+                                                                                  - 对于多类分类问题,只有'newton-cg','sag','saga'和'lbfgs'处理多项式损失.'liblinear'仅限于'一站式'计划
+                                                                                  - 'newton-cg','lbfgs','sag'和'saga'处理L2或不惩罚
+                                                                                  - 'liblinear'和'saga'也可以处理L1罚款
+                                                                                  - 'saga'还支持'elasticnet'惩罚
+                                                                                  - 'liblinear'不支持设置penalty='none'
+    --max_iter <<< int,default=100 求解程序收敛的最大迭代次数
+    --multi_class <<< {'auto','ovr','multinomial'},default='auto' 如果选择的选项是'ovr',则每个标签都看做二分类问题.对于'multinomial',即使数据是二分类的,损失最小是多项式损失拟合整个概率分布.
+                                                                  当solver='liblinear'时,'multinomial'不可用.如果数据是二分类的,或者如果Solver='liblinear',则'auto'选择'ovr',否则选择'multinomial'
+    --verbose <<< int,default=0 对于liblinear和lbfgs求解器,将verbose设置为任何正数以表示输出日志的详细程度
+    --warm_start <<< bool,default=False 设置为True时,用前面调用的解决方案来进行初始化,否则,只清除前面的解决方案.这个参数对于线性求解器无用
+    --n_jobs <<< int,default=None 当multi_class='ovr',在对类进行并行化时使用的CPU内核数.将solver设置为'liblinear'时,无论是否指定'multi_class',都将忽略此参数
+    --l1_ratio <<< float,default=None Elastic-Net混合参数,取值范围0<=l1_ratio<=1.仅在penalty='elasticnet'时使用.设置l1_ratio=0等同于使用penalty='l2',而设置l1_ratio=1等同于使用penalty='l1'.
+                                      对于0<l1_ratio<1,惩罚是L1和L2的组合
+属性:
+    --classes_ <<< ndarray of shape(n_classes,) 分类器已知的类别标签列表
+    --coef_ <<< ndarray of shape(1,n_features)or(n_classes,n_features) 决策函数中特征的系数(如果fit_intercept设置为False,则截距设置为零.intercept_当给定问题为二分类时,其形状为(1,).
+                                                                                        特别地,当multi_class='multinomial'时,intercept_对应于结果1(真),并且-intercept_对应于结果0(假)
+    --intercept <<< ndarray of shape(1,)or(n_classes,) 添加到决策函数的截距(也称为偏差)(如果fit_intercept设置为False,则截距设置为零.intercept_当给定问题为二分类时,其形状为(1,).
+                                                                                   特别地,当multi_class='multinomial'时,intercept_对应于结果1(真),并且-intercept_对应于结果0(假))
+    --n_iter_ <<< ndarray of shape(n_classes,)or(1,) 所有类的实际迭代数.如果是二分类或多项式,则仅返回1个元素.对于liblinear求解器,仅给出所有类的最大迭代次数
+方法:
+    ———— decision_function(self,x)
+    预测样本的置信度得分(样本的置信度分数是该样本到超平面的符号距离)
+    参数:
+        --x <<< array_like or sparse matrix,shape(n_samples, n_features) 样本
+    返回值:
+        --self <<< array, shape=(n_samples,) if n_classes == 2 else (n_samples, n_classes) 每个(样本,类别)组合的置信度得分.在二分类情况下,self.classes_ [1]的置信度得分> 0表示将预测该类
+
+
+    ————densify(self)
+    将系数矩阵转换为密集数组格式(将coef_数值转换为numpy.ndarray)
+    返回值:
+        --self <<< 拟合估计器
+
+
+    ————fit(self,x,y,sample_weight=None)
+    根据给定的训练数据拟合模型
+    参数:
+        --x <<< {array-like, sparse matrix} of shape(n_samples,n_features) 训练数据,其中n_samples是样本数,n_features是特征数
+        --y <<< array-like of shape(n_samples,) 对应于X的目标向量
+        --sample_weight <<< array-like of shape(n_samples,) default=None 分配给各个样本的权重数组.如果未设置,则为每个样本的权重都为1
+    返回值:
+        --self <<< 拟合估计器
+
+
+    ————get_params(self,deep=True)
+    获取此估计器的参数
+    参数:
+        --deep <<< bool,default=True 若为True,返回此估计器和所包含子对象的参数
+    返回值:
+        --params <<< mapping of string to any 参数名称映射到其值
+
+
+    ————predict(self,x)
+    预测x中样本的类别标签
+    参数:
+        --x <<< array_like or sparse matrix,shape(n_samples,n_features) 样本数据
+    返回值:
+        --C <<< array,shape[n_samples] 每个样本的预测类别标签
+
+
+    ————predict_log_proba(self, X)
+    预测概率估计的对数,返回按类别标签排序的所有类别的估计值
+    参数:
+        --X <<< array-like of shape(n_samples,n_features) 要预测的数据,其中n_samples是样本数,n_features是特征数
+    返回值:
+        --T <<< array-like of shape(n_samples,n_classes) 返回模型中每个类别的样本的对数概率,按self.classes_中类别的顺序排序
+
+
+    ————predict_proba(self, X)
+    概率估计,返回按类别标签排序的所有类别的估计值
+    参数:
+        --X <<< array-like of shape(n_samples,n_features) 要预测的数据,其中n_samples是样本数,n_features是特征数
+    返回值:
+        --T <<< array-like of shape(n_samples,n_classes) 返回模型中每个类别的样本概率,类按self.classes_中的顺序排序
+
+
+    ————score(self, X, y, sample_weight=None)
+    返回给定测试数据和标签上的平均准确度,在多标签分类中,这是子集准确性,这是一个严格的指标,因为你需要为每个样本正确预测标签集
+    参数:
+        --x <<< array-like of shape(n_samples,n_features) 测试样本
+        --y <<< array-like of shape(n_samples,)or(n_samples,n_outputs) x的真实标签
+        --sample_weight <<< array-like of shape(n_samples,),default=None 样本权重
+    返回值:
+        --score <<< float 预测标签与真实标签的平均准确度
+
+
+    ————set_params(self, **params)
+    设置此估算器的参数
+    参数:
+        --**params <<< dict 估计器参数
+    返回值:
+        --self <<< object 估计器实例
+
+
+    ————sparsify(self)
+    将系数矩阵转换为稀疏格式
+    返回值:
+        --self <<< 拟合估计器
+
+
+
+———— sklearn.metrics.roc_curve(y_true, y_score, *, pos_label=None, sample_weight=None, drop_intermediate=True)
+计算接收者操作特征曲线(ROC曲线)(此实现仅限于二进制分类任务)
+参数:
+    --y_true <<< array,shape=[n_samples] 真正的二进制标签.如果标签既不是{-1，1}也不是{0，1},则应该明确给出pos_label
+    --y_score <<< array,shape=[n_samples] 目标分数可以是正例类的概率估计值,置信度值或决策的非阈值度量(如某些分类器上的'decision_function'所返回)
+    --pos_label <<< int or str,default=None 正例类的标签.当pos_label = None时,如果y_true在{-1，1}或{0，1}中,则pos_label设置为1,否则将引发错误
+    --sample_weight <<< array-like of shape(n_samples,),default=None 样本权重
+    --drop_intermediate <<< boolean, optional(default=True) 是否降低一些未达到最佳阈值的阈值,这些阈值不会出现在绘制的ROC曲线上.这对于创建较浅的ROC曲线很有用
+返回值:
+    --fpr <<< array,shape=[>2] 增加假正例率,使得元素i是score >= thresholds[i]预测的假正例率
+    --tpr <<< array,shape=[>2] 增加真正例率,使得元素i是score >= thresholds[i]的预测的真正例率
+    --thresholds <<< array,shape=[n_thresholds] 用于计算fpr和tpr的决策函数的阈值递减.thresholds[0]表示没有实例在预测中,可以任意设置为max(y_score)+1
+
+
+
+———— sklearn.metrics.roc_auc_score(y_true, y_score, *, average='macro', sample_weight=None, max_fpr=None, multi_class='raise', labels=None)
+根据预测分数计算接收器工作特性曲线下的面积(AUC : ROC曲线下面积)
+参数:
+    --y_true <<< array-like of shape(n_samples,)or(n_samples,n_classes) 真实标签或二进制标签指示符.二元和多类情况下期望形状(n_samples,)的标签,而多标签情况则期望形状(n_samples,n_classes)的二进制标签指示符
+    --y_score <<< array-like of shape(n_samples,)or(n_samples,n_classes) 目标分数.在二进制和多标签的情况下,这些值可以是概率估计值,也可以是非阈值决策值(由某些分类器上的Decision_function返回).
+                                                                         在多类情况下,这些必须是总和为1的概率估计值.在二进制情况下,期望的形状是(n_samples,),并且分数必须是标签较大的类别的分数.
+                                                                         多类和多标签的情况需要一个形状(n_samples,n_classes).在多类情况下,类分数的顺序必须与标签的顺序(如果提供)相对应,或者与y_true中标签的数字或词典顺序相对应
+    --average <<< {‘micro’,‘macro’,‘samples’,‘weighted’} or None,default=’macro’ 如果为None,则返回每个类的分数.否则,将根据数据的平均表现确定类型:注意:多类ROC AUC当前仅处理‘macro’和‘weighted’平均值
+                   - 'micro':
+                    通过将标签指标矩阵的每个元素都视为标签来全局计算指标
+                   - 'macro':
+                    计算每个标签的指标,并找到其未加权平均值.此处未考虑标签不平衡
+                   - 'weighted':
+                    计算每个标签的指标,并找到它们的平均值,然后按支持率(每个标签的真实实例数)加权
+                   - 'samples':
+                    计算每个实例的指标,并找到它们的平均值
+                    当y_true为二进制时将被忽略
+    --sample_weight <<< array-like of shape(n_samples,),default=None 样本权重
+    --max_fpr <<< float > 0 and <= 1,default=None 如果不为None,则返回范围为[0,max_fpr]的标准化部分AUC[2].对于多类情况,max_fpr应该等于None或1.0,因为多类当前不支持AUC ROC部分计算
+    --multi_class <<< {‘raise’,‘ovr’,‘ovo’},default=’raise’ 仅多类.确定要使用的配置类型.默认值引发错误,因此必须显式传递'ovr'或'ovo'
+                       - 'ovr':
+                        计算每个类相对于其他类的AUC[3] [4].这以与多标签案例相同的方式对待多类别案例.即使average=='macro',也对类失衡敏感,因为类失衡会影响每个‘rest’分组的组成
+                       - 'ovo':
+                        计算类别的所有可能的成对组合的平均AUC[5].当均average == 'macro'时,对类失衡不敏感
+    --labels <<< array-like of shape(n_classes,),default=None 仅多类.索引y_score中的类的标签列表.如果为None,则使用y_true中标签的数字或字典顺序
+返回值:
+    --AUC <<< float
+
+
+
+
+
+
+
