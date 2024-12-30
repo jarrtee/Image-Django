@@ -1,0 +1,13 @@
+---------Numpy
+
+
+———— numpy.zero(shape,dtype=float,order='C')
+返回一个给定形状和类型的用0填充的数组
+参数:
+    --shape -> 新阵列的形状,例如(2,3)或2
+    --dtype -> 数据类型,例如numpy.int8,默认为numpy.float64
+    --order -> {'C','F'},默认为'C',是否在内容中以行(C)或列(F)顺序存储多维数据
+
+
+
+

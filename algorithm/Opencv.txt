@@ -1,0 +1,147 @@
+---------Opencv
+
+
+———— cv2.imread(filename,flags)
+读取图像
+参数:
+    --filename -> 图像路径
+    --flag -> 读取图片的方式
+              - cv2.imread_color(1):始终将图像转换为3通道BGR彩色图像,默认方式
+              - cv2.imread_grayscale(0):始终将图像转换为单通道灰度图像
+              - cv2.imread_unchanged(-1):按原样返回加载的图像(使用Alpha通道)
+              - cv2.imread_anydepth(2):在输入具有相应深度时返回16位/32位图像,否则将其转换为8位
+              - cv2.imread_anycolor(4):以任何可能的颜色格式读取图像
+
+
+
+———— cv2.resize(src,dsize,dst=None,fx=None,fy=None,interpolation=None)
+图片缩放
+参数:
+    --src -> 原图像
+    --dsize -> 输出图像的大小
+    --fx -> width方向的缩放比例
+    --fy -> height方向的缩放比例
+    --interpolation(插值) -> 指定插值的方式
+                            - INTER_NEAREST -> 最邻近插值
+                            - INTER_LINEAR -> 双线性插值，如果最后一个参数你不指定，默认使用这种方法
+                            - INTER_CUBIC -> 4x4像素邻域内的双立方插值
+                            - INTER_LANCZOS4 -> 8x8像素邻域内的Lanczos插值
+
+
+
+———— cv2.cvtcolor(src,code[,dstCn])
+色彩空间类型转换
+参数:
+    --src -> 表示原始输入图像.可以是8位无符号图像、16位无符号图像,或单精度浮点数等
+    --code -> 色彩空间转换码
+    --dstCn -> 目标图像的通道数.若参数为默认的0,则通道数自动通过原始输入图像和code得到
+
+
+
+———— cv2.inRange(src,lowerb,upperb)
+指定ROI区域
+参数:
+    --src -> 原图
+    --lowerb -> 图像中低于这个lowerb的值,图像值变为0(黑色)
+    --upperb -> 图像中高于这个upperb的值,图像值变为0(黑色)
+    --lowerb ~ upperb -> 在lowerb和upperb之间的值变为255(白色)
+
+
+
+———— retval,dst = cv2.threshold(src,thresh,maxval,type)
+二值化处理
+参数:
+    --src -> 代表要进行阈值分割的图像,可以是多通道的,8位或32位浮点型数值
+    --thresh -> 代表要设定的阈值
+    --maxval -> 当type参数为THRESH_BINARY或THRESH_BINARY_INV类型时,需要设定的最大值
+    --type -> 阈值分割的类型
+返回值:
+    --retval -> 返回的阈值
+    --dst -> 阈值分割结果图像,与原始图像具有相同的大小和类型
+
+
+
+———— cv2.adaptiveThreshold(src,maxValue,adaptiveMethod,thresholdType,blockSize,C)
+自适应阈值处理
+参数:
+    --src -> 原始图像(必须是8位单通道的图像)
+    --maxValue -> 最大值
+    --adaptiveMethod -> 自适应方法
+                        - cv2.ADAPTIVE_THRESH_MEAN_C:邻域所有像素点的权重值是一致的
+                        - cv2.ADAPTIVE_THRESH_GAUSSIAN_C:与邻域各个像素点到中心点的距离有关,通过高斯方程得到各个点的权重值
+    --thresholdType -> 阈值处理方法,该值必须是 cv2.THRESH_BINARY 或者cv2.THRESH_BINARY_INV 中的一个
+    --blockSize -> 块大小,表示一个像素在计算其阈值时所使用的邻域尺寸,通常为3、5、7等
+    --C -> 常量
+
+
+
+———— cv2.blur(src,ksize,anchor,borderType)
+均值滤波
+———— cv2.boxFilter(src,ddepth,ksize,anchor,normalize,borderType)
+方框滤波
+———— cv2.GaussianBlur(src,ksize,sigmaX,sigmaY,borderType)
+高斯滤波
+———— cv2.medianBlur(src,Ksize)
+中值滤波
+———— cv2.bilateralFilter(src,d,sigmaColor,sigmaSpace,borderType)
+双边滤波
+
+
+
+———— retval,dst = cv2.morphologyEx(src,op,kernel[,dst[,anchor]])
+形态学操作
+参数:
+    --src -> 原图像,必须是单通道的灰度图像
+    --op -> 形态学操作的类型
+            - cv2.MORPH_ERODE:腐蚀操作
+            - cv2.MORPH_DILATE:膨胀操作
+            - cv2.MORPH_OPEN:开运算
+            - cv2.MORPH_CLOSE:闭运算
+            - cv2.MORPH_GRADIENT:形态学梯度
+            - cv2.MORPH_TOPHAT:原图像减去膨胀的图像
+            - cv2.MORPH_HITMISS:结构元素对应的点集比较
+    --kernel -> 形态学操作的核,通常是一个矩形、椭圆或十字形的小矩阵.核的大小可以是正奇数
+    --dst -> 输出图像,若未指定,则函数会创建一个新的输出图像
+    --anchor -> 核的锚点,默认是核的中心
+
+
+
+———— cv2.erode(src,kernel,anchor,iterations,borderType,borderValue)
+腐蚀
+参数:
+    --src -> 通道数任意,图像深度只能是CV_8U,CV_16U,CV_16S,CV_32F or CV_64F
+    --kernel -> 可以由getStructuringElement()构建
+    --anchor -> 锚点,默认使用(-1,-1)表示中心点
+    --iterations -> 腐蚀次数
+    --borderType -> 边界类型
+    --borderValue -> 边界值
+
+
+
+———— cv2.dilate(src,kernel,anchor,iterations,borderType,borderValue)
+膨胀
+参数:
+    --src -> 通道数任意,图像深度只能是CV_8U,CV_16U,CV_16S,CV_32F or CV_64F
+    --kernel -> 可以由getStructuringElement()构建
+    --anchor -> 锚点,默认使用(-1,-1)表示中心点
+    --iterations -> 腐蚀次数
+    --borderType -> 边界类型
+    --borderValue -> 边界值
+
+
+
+———— cv2.getStructuringElement(shape,ksize,anchor)
+结构元生成函数用来生成形态学变换的kernel参数
+参数:
+    --shape -> 结构元的形状
+               - cv2.MORPH_RECT 方形,所有的数值均为1
+               - cv2.MORPH_CROSS 十字交叉形,在锚点坐标的水平和竖直方向的元素为1,其他为0
+               - cv2.MORPH_ELLIPSE 椭圆形
+    --ksize -> 结构元的大小
+    --anchor -> 锚点,默认使用(-1,-1)表示中心点
+
+
+
+
+
+

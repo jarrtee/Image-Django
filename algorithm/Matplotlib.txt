@@ -34,4 +34,20 @@
 
 
 
+———— matplotlib.pyplot.subplot(nrows,ncols,index)
+在当前图形窗口创建并激活一个子图
+参数:
+    --nrows -> 子图的行数(指整个图形窗口将被分成多少行子图)
+    --ncols -> 子图的列数(指整个图形窗口将被分成多少列表子图)
+    --index -> 当前激活的子图位置索引(索引从1开始计数,按行优先顺序排列)
+
+
+
+———— matplotlib.pyplot.legend(*args,**kwargs)
+放置图例
+
+
+
+
+
 
